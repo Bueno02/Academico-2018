@@ -29,7 +29,16 @@
                   <VBox spacing="5.0">
                      <children>
                         <Label text="Nome" />
-                        <TextField fx:id="txtFldNome" prefHeight="25.0" prefWidth="330.0" />
+                        <TextField fx:id="txtFldNome" prefHeight="25.0" prefWidth="260.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="CH" />
+                        <TextField fx:id="txtFldCh" prefHeight="25.0" prefWidth="45.0" />
                      </children>
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />

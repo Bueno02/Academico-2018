@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import de.jensd.fx.glyphs.materialdesignicons.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AlunoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="903.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AlunoController">
 
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -20,24 +20,70 @@
                   <MaterialDesignIconView fx:id="btnIncluir" glyphName="PLUS" onMouseClicked="#acIncluir" size="1.3em" />
                     <MaterialDesignIconView fx:id="btnAlterar" glyphName="PENCIL" onMouseClicked="#acAlterar" size="1.3em" />
                     <MaterialDesignIconView fx:id="btnExcluir" glyphName="DELETE" onMouseClicked="#acExcluir" size="1.3em" />
+                    <TextField fx:id="txtFldFiltro" />
+                    <MaterialDesignIconView fx:id="btnFiltro" glyphName="FILTER" onMouseClicked="#acFiltrar" size="1.3em" />
+                    <MaterialDesignIconView fx:id="btnLimpar" glyphName="BROOM" onMouseClicked="#acLimpar" size="1.3em" />
                 </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>    
             </HBox>
-            <TableView fx:id="tblViewAluno" prefHeight="350.0" prefWidth="310.0">
+            <TableView fx:id="tblViewAluno" onMouseClicked="#tblViewAlunoClick" prefHeight="350.0" prefWidth="310.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="CPF" >
+                <TableColumn prefWidth="130.0" text="R.A">
                 <cellValueFactory>
-                    <PropertyValueFactory property="cpf"/>
+                    <PropertyValueFactory property="ra" />
                 </cellValueFactory>
                 </TableColumn>
-                <TableColumn maxWidth="400.0" prefWidth="350.0" text="Nome" >
+                <TableColumn maxWidth="400.0" prefWidth="172.0" text="Nome">
                 <cellValueFactory>
-                    <PropertyValueFactory property="nome"/>
+                    <PropertyValueFactory property="nome" />
                 </cellValueFactory>
                 </TableColumn>
+                  <TableColumn prefWidth="171.0" text="Email">
+                      <cellValueFactory>
+                    <PropertyValueFactory property="email" />
+                </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="50.0" text="Qntd D">
+                      <cellValueFactory>
+                    <PropertyValueFactory property="qntdDisciplina" />
+                </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="125.0" text="Nascimento">
+                  <cellValueFactory>
+                    <PropertyValueFactory property="dataNascimentoString" />
+                </cellValueFactory>
+                </TableColumn>
+                  <TableColumn prefWidth="125.0" text="Cidade">
+                  <cellValueFactory>
+                    <PropertyValueFactory property="cidade" />
+                </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="125.0" text="Cadastro">
+                  <cellValueFactory>
+                    <PropertyValueFactory property="dataCadastroString" />
+                </cellValueFactory>
+                </TableColumn>
+                
               </columns>
+              <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem fx:id="mnCtxAltera" mnemonicParsing="false" onAction="#acAlterar" text="Alterar" visible="true">
+                          <graphic>
+                           <MaterialDesignIconView glyphName="PENCIL" onMouseClicked="#acAlterar" size="1.3em" />
+                          </graphic>
+                      </MenuItem>
+                      <MenuItem fx:id="mnCtxExcluir" mnemonicParsing="false" onAction="#acExcluir" text="Excluir" visible="true">
+                          <graphic>
+                           <MaterialDesignIconView glyphName="MINUS" onMouseClicked="#acExcluir" size="1.3em" />
+                          </graphic>
+                      </MenuItem>
+                      
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
             </TableView>
             <ToolBar prefHeight="40.0" prefWidth="200.0">
               <items>

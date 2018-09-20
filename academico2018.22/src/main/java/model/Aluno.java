@@ -5,23 +5,29 @@
  */
 package model;
 
+import static config.Config.df;
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+
 
 /**
  *
  * @author Muriel
  */
 public class Aluno {
-       @Id
+    @Id
     private String id;
-    
+    @Indexed(unique=true)
+    private String ra;
     private String nome;
     private String email;
+    private LocalDate dataNascimento;
+    private LocalDate dataCadastro;
+    private List<Matricula> matriculas; 
     
-    @Indexed(unique = true)
-    private String cpf;
     
     @DBRef
     private Cidade cidade;
@@ -29,18 +35,26 @@ public class Aluno {
     public Aluno() {
     }
 
-    public Aluno(String nome, String email, String cpf, Cidade cidade) {
+    public Aluno(String ra, String nome, String email, LocalDate dataNascimento, List<Matricula> matriculas, Cidade cidade) {
+        this.ra = ra;
         this.nome = nome;
         this.email = email;
-        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
+        this.matriculas = matriculas;
         this.cidade = cidade;
+
+    }
+    
+     public Aluno(String ra, String nome, String email, LocalDate dataNascimento, List<Matricula> matriculas) {
+        this.ra = ra;
+        this.nome = nome;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.matriculas = matriculas;
+ 
     }
 
-    public Aluno(String nome, String email, String cpf) {
-        this.nome = nome;
-        this.email = email;
-        this.cpf = cpf;
-    }
+    
 
     public String getNome() {
         return nome;
@@ -58,20 +72,66 @@ public class Aluno {
         this.email = email;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getRa() {
+        return ra;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setRa(String ra) {
+        this.ra = ra;
+    }
+    
+    public LocalDate getDataCadastro() {
+        return dataCadastro;
     }
 
+    public String getDataCadastroString() {
+         if(dataCadastro != null)
+        return dataCadastro.format(df);
+        else return "";
+    }
+
+    public void setDataCadastro() {
+        this.dataCadastro = LocalDate.now();;
+    }
+
+    
+    
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+    public String getDataNascimentoString() {
+        if(dataNascimento != null)
+        return dataNascimento.format(df);
+        else return "00/00/0000";
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+    
+    
     public Cidade getCidade() {
         return cidade;
     }
 
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
+    }
+
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
+    
+    
+    
+    public int getQntdDisciplina(){
+        if(matriculas != null)
+           return matriculas.size();
+        else return 0;
     }
 
     @Override

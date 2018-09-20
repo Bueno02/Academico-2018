@@ -36,12 +36,13 @@ public class CRUDDisciplinaController implements Initializable {
      */
     private DisciplinaController controllerPai;
 
-
     @FXML
     private TextField txtFldCodigo;
 
     @FXML
     private TextField txtFldNome;
+    @FXML
+    private TextField txtFldCh;
 
     @FXML
     private AnchorPane anchorPane;
@@ -62,6 +63,7 @@ public class CRUDDisciplinaController implements Initializable {
     private void btnConfirmaClick() {
         controllerPai.disciplina.setCodigo(txtFldCodigo.getText());
         controllerPai.disciplina.setNome(txtFldNome.getText());
+        controllerPai.disciplina.setAulas(Integer.parseInt(txtFldCh.getText()));
         controllerPai.disciplina.setProfessor((Professor) cmbProfessor.getSelectionModel().getSelectedItem());
         try {
             switch (controllerPai.acao) {
@@ -110,6 +112,7 @@ public class CRUDDisciplinaController implements Initializable {
         this.controllerPai = controllerPai;
         txtFldCodigo.setText(controllerPai.disciplina.getCodigo());
         txtFldNome.setText(controllerPai.disciplina.getNome());
+        txtFldCh.setText(String.valueOf(controllerPai.disciplina.getAulas()));
 
         cmbProfessor.setItems(FXCollections.observableList(
                 professorRepository.findAll(new Sort(new Sort.Order("nome")))));
@@ -120,6 +123,7 @@ public class CRUDDisciplinaController implements Initializable {
 
         txtFldCodigo.setDisable(controllerPai.acao == EXCLUIR);
         txtFldNome.setDisable(controllerPai.acao == EXCLUIR);
+        txtFldCh.setDisable(controllerPai.acao == EXCLUIR);
 
     }
 

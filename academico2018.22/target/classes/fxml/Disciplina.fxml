@@ -22,7 +22,7 @@
                     <MaterialDesignIconView fx:id="btnExcluir" glyphName="DELETE" onMouseClicked="#acExcluir" size="1.3em" />
                   <TextField fx:id="txtFldFiltro" />
                     <MaterialDesignIconView fx:id="btnFiltro" glyphName="FILTER" onMouseClicked="#acFiltrar" size="1.3em" />
-                    <MaterialDesignIconView fx:id="btnLimpar" glyphName="AUTORENEW" onMouseClicked="#acLimpar" size="1.3em" />
+                    <MaterialDesignIconView fx:id="btnLimpar" glyphName="BROOM" onMouseClicked="#acLimpar" size="1.3em" />
                 </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -35,9 +35,14 @@
                     <PropertyValueFactory property="codigo" />
                 </cellValueFactory>
                 </TableColumn>
-                <TableColumn maxWidth="400.0" prefWidth="350.0" text="Nome">
+                <TableColumn maxWidth="400.0" prefWidth="300.0" text="Nome">
                 <cellValueFactory>
                     <PropertyValueFactory property="nome" />
+                </cellValueFactory>
+                </TableColumn>
+                <TableColumn maxWidth="60.0" prefWidth="60.0" text="C.H">
+                <cellValueFactory>
+                    <PropertyValueFactory property="aulas" />
                 </cellValueFactory>
                 </TableColumn>
                   <TableColumn prefWidth="174.0" text="Professor">
@@ -49,8 +54,16 @@
               <contextMenu>
                   <ContextMenu>
                     <items>
-                      <MenuItem fx:id="mnCtxAltera" mnemonicParsing="false" onAction="#acAlterar" text="Alterar" visible="true" />
-                      <MenuItem fx:id="mnCtxExclui" mnemonicParsing="false" onAction="#acExcluir" text="Excluir" visible="true" />
+                      <MenuItem fx:id="mnCtxAltera" mnemonicParsing="false" onAction="#acAlterar" text="Alterar" visible="true" >
+                          <graphic>
+                           <MaterialDesignIconView glyphName="PENCIL" onMouseClicked="#acAlterar" size="1.3em" />
+                          </graphic>
+                      </MenuItem>
+                      <MenuItem fx:id="mnCtxExcluir" mnemonicParsing="false" onAction="#acExcluir" text="Excluir" visible="true" >
+                      <graphic>
+                           <MaterialDesignIconView glyphName="MINUS" onMouseClicked="#acExcluir" size="1.3em" />
+                          </graphic>
+                      </MenuItem>
                     </items>
                   </ContextMenu>
                </contextMenu>

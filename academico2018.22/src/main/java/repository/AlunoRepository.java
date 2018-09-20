@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 
 public interface AlunoRepository extends MongoRepository<Aluno, String>{
-    public Aluno findByNome(String nome);
+    public Aluno findByRa(String nome);
     public List <Aluno> findByNomeLikeIgnoreCase(String nome);
+    public List <Aluno> findByNomeLikeIgnoreCaseOrEmailLikeIgnoreCase(String nome,String email);
+
     
 }

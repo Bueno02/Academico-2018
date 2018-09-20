@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.materialdesignicons.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="281.0" prefWidth="439.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CRUDMatriculaController">
+
+   <children>
+      <VBox alignment="CENTER" prefHeight="202.0" prefWidth="324.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+             <Label fx:id="lblAluno" textFill="#300202">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+             
+            <TableView fx:id="tblView" prefHeight="355.0" prefWidth="439.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Disciplina">
+                <cellValueFactory>
+                    <PropertyValueFactory property="disciplina" />
+                </cellValueFactory>
+                </TableColumn>
+                <TableColumn maxWidth="50.0" prefWidth="50.0" text="Nota1">
+                <cellValueFactory>
+                    <PropertyValueFactory property="nota1Sem" />
+                </cellValueFactory>
+                </TableColumn>
+                <TableColumn maxWidth="50.0" prefWidth="50.0" text="Nota2">
+                <cellValueFactory>
+                    <PropertyValueFactory property="nota2Sem" />
+                </cellValueFactory>
+                </TableColumn>
+                <TableColumn maxWidth="55.0" prefWidth="50.0" text="NotaEx">
+                <cellValueFactory>
+                    <PropertyValueFactory property="notaEx" />
+                </cellValueFactory>
+                </TableColumn>
+                <TableColumn maxWidth="50.0" prefWidth="50.0" text="Faltas">
+                <cellValueFactory>
+                    <PropertyValueFactory property="faltas" />
+                </cellValueFactory>
+                </TableColumn>
+                <TableColumn maxWidth="150.0" prefWidth="150.0" text="Status">
+                <cellValueFactory>
+                    <PropertyValueFactory property="status" />
+                </cellValueFactory>
+                </TableColumn>
+              </columns>
+             <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem fx:id="mnCtxAltera" mnemonicParsing="false" onAction="#showCRUD" text="Alterar" visible="true">
+                          <graphic>
+                           <MaterialDesignIconView glyphName="PENCIL" onMouseClicked="#showCRUD" size="1.3em" />
+                          </graphic>
+                      </MenuItem>
+                      
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+              
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

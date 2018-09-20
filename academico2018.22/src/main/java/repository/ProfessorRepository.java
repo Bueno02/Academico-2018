@@ -12,4 +12,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface ProfessorRepository extends MongoRepository<Professor, String>{
     public Professor findByNome(String nome);
     public List <Professor> findByNomeLikeIgnoreCase(String nome);
+    public List <Professor> findByNomeLikeIgnoreCaseOrEmailLikeIgnoreCase(String nome,String email);
 }

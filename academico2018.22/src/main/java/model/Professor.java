@@ -12,6 +12,7 @@ public class Professor {
     private String id;
     
     private String nome;
+    @Indexed(unique = true)
     private String email;
     
     @Indexed(unique = true)

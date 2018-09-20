@@ -16,6 +16,9 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import model.Disciplina;
@@ -43,8 +46,17 @@ public class DisciplinaController implements Initializable {
     @FXML
     private MaterialDesignIconView btnExcluir;
     @FXML
+    private MaterialDesignIconView btnFiltro;
+    @FXML
+    private MaterialDesignIconView btnLimpar;
+    @FXML
+    private MenuItem mnCtxAltera;
+    @FXML
+    private MenuItem mnCtxExcluir;
+    @FXML
     private TextField txtFldFiltro;
-
+   
+    
     @FXML
     private void acIncluir() {
         acao = INCLUIR;
@@ -60,6 +72,8 @@ public class DisciplinaController implements Initializable {
         disciplina = tblView.getSelectionModel().getSelectedItem();
         showCRUD();
     }
+    
+    
     
     @FXML
     private void acLimpar() {
@@ -92,7 +106,7 @@ public class DisciplinaController implements Initializable {
                 popOver = new XPopOver(cena, "Inclusão de Disciplina", btnAlterar);
                 break;
             case EXCLUIR:
-                popOver = new XPopOver(cena, "Inclusão de Disciplina", btnExcluir);
+                popOver = new XPopOver(cena, "Inclusão de Disciplina", null);
                 break;
         }
         CRUDDisciplinaController controllerFilho = popOver.getLoader().getController();
@@ -106,8 +120,25 @@ public class DisciplinaController implements Initializable {
         
         btnAlterar.visibleProperty().bind(Bindings.isEmpty((tblView.getSelectionModel().getSelectedItems())).not());
         btnExcluir.visibleProperty().bind(btnAlterar.visibleProperty());
+        btnFiltro.disableProperty().bind(txtFldFiltro.textProperty().isEmpty());
+        btnLimpar.visibleProperty().bind(txtFldFiltro.textProperty().isEmpty().not());
+        mnCtxAltera.visibleProperty().bind(btnAlterar.visibleProperty());
+        mnCtxExcluir.visibleProperty().bind(btnAlterar.visibleProperty());
       
-        
-    }
+        tblView.setRowFactory(tableView
+                -> {
+            TableRow<Disciplina> row = new TableRow<>();
 
+            row.itemProperty().addListener((observable, oldValue, newValue)
+                    -> {
+                if (newValue != null && newValue.getAulas() == 0) {
+                    row.getStyleClass().add("cargaHorariaZerada");
+
+                } else {
+                    row.getStyleClass().remove("cargaHorariaZerada");
+                }
+            });
+            return row;
+        });
+    }
 }

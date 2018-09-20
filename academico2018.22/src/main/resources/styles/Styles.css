@@ -1,3 +1,10 @@
 .button {
     -fx-font-weight: bold;
 }
+
+.cargaHorariaZerada{    
+    -fx-font-weight:bold;
+    -fx-mid-text-color: green;
+    -fx-light-text-color: yellow;
+}
+

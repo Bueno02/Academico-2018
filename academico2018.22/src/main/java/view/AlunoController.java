@@ -16,9 +16,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 import model.Aluno;
 import model.Disciplina;
 import org.springframework.data.domain.Sort;
@@ -44,7 +49,32 @@ public class AlunoController implements Initializable {
     private MaterialDesignIconView btnAlterar;
     @FXML
     private MaterialDesignIconView btnExcluir;
+    @FXML
+    private MaterialDesignIconView btnFiltro;
+    @FXML
+    private MaterialDesignIconView btnLimpar;
+    @FXML
+    private MenuItem mnCtxAltera;
+    @FXML
+    private MenuItem mnCtxExcluir;
+    @FXML
+    private TextField txtFldFiltro;
 
+    @FXML
+    private void tblViewAlunoClick (Event event){
+        MouseEvent me = null;
+        if(event.getEventType() == MOUSE_CLICKED){
+            me = (MouseEvent) event;
+            if(me.getClickCount() == 2){
+                aluno = tblViewAluno.getSelectionModel().getSelectedItem();
+                String cena = "/fxml/CRUDMatricula.fxml";
+                 XPopOver popOver = new XPopOver(cena,"Lista de Disciplinas", null);
+                CRUDMatriculaController controllerFilho = popOver.getLoader().getController();
+                controllerFilho.setCadastroController(this);
+    }
+    }
+    }
+    
     @FXML
     private void acIncluir() {
         acao = INCLUIR;
@@ -69,6 +99,20 @@ public class AlunoController implements Initializable {
             aluno = tblViewAluno.getSelectionModel().getSelectedItem();
             showCRUD();
         }
+    }
+    
+    @FXML
+    private void acLimpar() {
+        txtFldFiltro.setText("");
+        tblViewAluno.setItems(
+                FXCollections.observableList(alunoRepository.findAll(new Sort(new Sort.Order("nome")))));
+    }
+    
+
+    @FXML
+    private void acFiltrar() {
+        tblViewAluno.setItems(FXCollections.observableList(alunoRepository.findByNomeLikeIgnoreCaseOrEmailLikeIgnoreCase(
+                txtFldFiltro.getText(),txtFldFiltro.getText())));
     }
 
     private void showCRUD() {
@@ -97,8 +141,12 @@ public class AlunoController implements Initializable {
         tblViewAluno.setItems(FXCollections.observableList(alunoRepository.findAll(new Sort(new Sort.Order("nome")))));
       
         
-//        btnAlterar.visibleProperty().bind(Bindings.isEmpty((tblViewAluno.getSelectionModel().getSelectedItems())).not());
-  //      btnExcluir.visibleProperty().bind(btnAlterar.visibleProperty());
+        btnAlterar.visibleProperty().bind(Bindings.isEmpty((tblViewAluno.getSelectionModel().getSelectedItems())).not());
+        btnExcluir.visibleProperty().bind(btnAlterar.visibleProperty());
+        btnFiltro.disableProperty().bind(txtFldFiltro.textProperty().isEmpty());
+        btnLimpar.visibleProperty().bind(txtFldFiltro.textProperty().isEmpty().not());
+        mnCtxAltera.visibleProperty().bind(btnAlterar.visibleProperty());
+        mnCtxExcluir.visibleProperty().bind(btnAlterar.visibleProperty());
         
     }
 

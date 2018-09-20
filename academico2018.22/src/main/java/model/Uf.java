@@ -75,7 +75,7 @@ public class Uf {
 
     @Override
     public String toString() {
-        return  nome ;
+        return  nome + "-" + getSigla();
     }
     
     

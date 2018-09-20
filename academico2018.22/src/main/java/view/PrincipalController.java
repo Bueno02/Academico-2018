@@ -1,5 +1,6 @@
 package view;
 
+import static config.Config.df;
 import static config.DAO.alunoRepository;
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,27 +15,55 @@ import static config.DAO.disciplinaRepository;
 import static config.DAO.professorRepository;
 import static config.DAO.cidadeRepository;
 import static config.DAO.ufRepository;
+import java.time.LocalDate;
 import model.Aluno;
+import model.Matricula;
 
 public class PrincipalController implements Initializable {
     
 
     
     Disciplina disciplina;
-    Professor professor;
-    Cidade cidade;
+//    Professor professor;
+//    Cidade cidade;
     Aluno aluno;
     Uf uf;
-    List<Cidade> lstCit =   new ArrayList<Cidade>();
-    List<Uf> lstUf  =   new ArrayList<Uf>();
-    List<Disciplina> lstDisc    =   new ArrayList<Disciplina>();
-    List<Professor> lstProf    =   new ArrayList<Professor>();
-    List<Aluno> lstAlun    =   new ArrayList<Aluno>();
+//    List<Cidade> lstCit =   new ArrayList<Cidade>();
+//    List<Uf> lstUf  =   new ArrayList<Uf>();
+//    List<Disciplina> lstDisc    =   new ArrayList<Disciplina>();
+//    List<Professor> lstProf    =   new ArrayList<Professor>();
+//    List<Aluno> lstAlun    =   new ArrayList<Aluno>();
+    List<Matricula> lstMatricula = new ArrayList<Matricula>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-//        /**
-//         * Salva os estados e suas Siglas
+//        LocalDate dtTeste = LocalDate.parse("05/09/2018", df);
+//        
+//        System.out.println(df.format(dtTeste));
+//        
+//        disciplina = new Disciplina("135678", "Geometria", 40, "");
+//        disciplinaRepository.save(disciplina);
+//        disciplina = new Disciplina("135679", "Algoritmos", 60, "");
+//        disciplinaRepository.save(disciplina);
+//        
+//        lstMatricula.add(new Matricula(disciplinaRepository.findByCodigo("135678"), 75, 65, 0, 10));
+//        lstMatricula.add(new Matricula(disciplinaRepository.findByCodigo("135679"), 50, 50, 50, 10));
+//        
+//        aluno =(new Aluno("1455558", "Jusino", "@email", dtTeste, lstMatricula));
+//        alunoRepository.save(aluno);
+//        
+//        for (Matricula m : lstMatricula){
+//            System.out.println(m.getDisciplina());
+//            System.out.println(m.getNota1Sem());
+//            System.out.println(m.getNota2Sem());
+//            System.out.println(m.getNotaEx());
+//            System.out.println(m.getMedia());
+//            System.out.println(m.getStatus());
+//            System.out.println("----------");
+//        }
+        
+        /**
+         * Salva os estados e suas Siglas
 //         */
 //        uf = new Uf("Paraná","PR");
 //        ufRepository.save(uf);
@@ -54,7 +83,7 @@ public class PrincipalController implements Initializable {
 //        ufRepository.save(uf);
 //        uf = new Uf("Rio Grande do Norte","RN");
 //        ufRepository.save(uf);
-//         /**
+         /**
 //         * Encontra as Siglas na tabela uf e cria um link com a cidade
 //         */
 //        uf =  ufRepository.findBySiglaLikeIgnoreCase("PR");

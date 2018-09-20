@@ -20,7 +20,9 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import model.Disciplina;
 import model.Professor;
 import org.springframework.data.domain.Sort;
@@ -52,6 +54,18 @@ public class ProfessorController implements Initializable {
     private MaterialDesignIconView btnExcluir;
     @FXML
     private MaterialDesignIconView btnListar;
+    @FXML
+    private MaterialDesignIconView btnFiltro;
+    @FXML
+    private MaterialDesignIconView btnLimpar;
+    @FXML
+    private MenuItem mnCtxAltera;
+    @FXML
+    private MenuItem mnCtxExcluir;
+    @FXML
+    private MenuItem mnCtxListar;
+    @FXML
+    private TextField txtFldFiltro;
 
     @FXML
     private void acIncluir() {
@@ -95,9 +109,21 @@ public class ProfessorController implements Initializable {
         XPopOver popOver = new XPopOver(cena,"Lista de Disciplinas", btnListar);
        ListaDisciplinaController controllerFilho = popOver.getLoader().getController();
         controllerFilho.setCadastroController(this);
-       
-       
         
+    }
+    
+    @FXML
+    private void acLimpar() {
+        txtFldFiltro.setText("");
+        tblView.setItems(
+                FXCollections.observableList(professorRepository.findAll(new Sort(new Sort.Order("nome")))));
+    }
+    
+
+    @FXML
+    private void acFiltrar() {
+        tblView.setItems(FXCollections.observableList(professorRepository.findByNomeLikeIgnoreCaseOrEmailLikeIgnoreCase(
+                txtFldFiltro.getText(),txtFldFiltro.getText())));
     }
 
     private void showCRUD() {
@@ -127,6 +153,11 @@ public class ProfessorController implements Initializable {
         btnAlterar.visibleProperty().bind(Bindings.isEmpty((tblView.getSelectionModel().getSelectedItems())).not());
         btnExcluir.visibleProperty().bind(btnAlterar.visibleProperty());
         btnListar.visibleProperty().bind(btnAlterar.visibleProperty());
+        btnFiltro.disableProperty().bind(txtFldFiltro.textProperty().isEmpty());
+        btnLimpar.visibleProperty().bind(txtFldFiltro.textProperty().isEmpty().not());
+        mnCtxAltera.visibleProperty().bind(btnAlterar.visibleProperty());
+        mnCtxExcluir.visibleProperty().bind(btnAlterar.visibleProperty());
+        mnCtxListar.visibleProperty().bind(btnAlterar.visibleProperty());
         
     }
 

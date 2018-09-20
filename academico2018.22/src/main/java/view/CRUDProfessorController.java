@@ -14,6 +14,7 @@ import static config.DAO.cidadeRepository;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import model.Cidade;
+import org.controlsfx.control.PopOver;
 import org.springframework.data.domain.Sort;
 import utility.XPopOver;
 
@@ -63,7 +65,7 @@ public class CRUDProfessorController implements Initializable {
     private MaterialDesignIconView btnIncluir;
     
     @FXML
-    private MaterialDesignIconView btnExcluir;
+    private MaterialDesignIconView btnAlterar;
     
     
     @FXML
@@ -76,8 +78,8 @@ public class CRUDProfessorController implements Initializable {
     }
     
     @FXML
-    private void acExcluir(){
-        acao = EXCLUIR;
+    private void acAlterar(){
+        acao = ALTERAR;
         cidade = (Cidade) cmbCidade.getSelectionModel().getSelectedItem();
 
         showCRUD();
@@ -90,10 +92,10 @@ public class CRUDProfessorController implements Initializable {
 
         switch (acao) {
             case INCLUIR:
-                popOver = new XPopOver(cena, "Inclusão de Professor", btnIncluir);
+                popOver = new XPopOver(cena, "Inclusão de Cidade", btnIncluir,PopOver.ArrowLocation.TOP_RIGHT);
                 break;
-            case EXCLUIR:
-                popOver = new XPopOver(cena, "Exclusão de Professor", btnExcluir);
+            case ALTERAR:
+                popOver = new XPopOver(cena, "Alteração de Cidade", btnAlterar,PopOver.ArrowLocation.TOP_RIGHT);
                 break;
         }
         CRUDCidadeController controllerFilho = popOver.getLoader().getController();
@@ -152,7 +154,7 @@ public class CRUDProfessorController implements Initializable {
 
         btnConfirma.disableProperty().bind(txtFldCpf.textProperty().isEmpty().
                 or(txtFldNome.textProperty().isEmpty()).or(txtFldEmail.textProperty().isEmpty()) );
-
+        btnAlterar.visibleProperty().bind(cmbCidade.getSelectionModel().selectedItemProperty().isNotNull());
     }
 
     public void setCadastroController(ProfessorController controllerPai) {

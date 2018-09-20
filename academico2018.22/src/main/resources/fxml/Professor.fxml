@@ -21,6 +21,9 @@
                     <MaterialDesignIconView fx:id="btnAlterar" glyphName="PENCIL" onMouseClicked="#acAlterar" size="1.3em" />
                     <MaterialDesignIconView fx:id="btnExcluir" glyphName="DELETE" onMouseClicked="#acExcluir" size="1.3em" />
                     <MaterialDesignIconView fx:id="btnListar" glyphName="CLIPBOARD" onMouseClicked="#acListar" size="1.3em" />
+                     <TextField fx:id="txtFldFiltro" />
+                    <MaterialDesignIconView fx:id="btnFiltro" glyphName="FILTER" onMouseClicked="#acFiltrar" size="1.3em" />
+                    <MaterialDesignIconView fx:id="btnLimpar" glyphName="BROOM" onMouseClicked="#acLimpar" size="1.3em" />
                 </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -28,7 +31,7 @@
             </HBox>
             <TableView fx:id="tblView" prefHeight="350.0" prefWidth="310.0">
               <columns>
-                <TableColumn prefWidth="157.0" text="CPF">
+                <TableColumn prefWidth="130.0" text="CPF">
                 <cellValueFactory>
                     <PropertyValueFactory property="cpf" />
                 </cellValueFactory>
@@ -43,12 +46,34 @@
                     <PropertyValueFactory property="email" />
                 </cellValueFactory>
                 </TableColumn>
-                  <TableColumn prefWidth="99.0" text="Cidade" >
+                  <TableColumn prefWidth="125.0" text="Cidade" >
                   <cellValueFactory>
                     <PropertyValueFactory property="cidade" />
                 </cellValueFactory>
                 </TableColumn>
               </columns>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem fx:id="mnCtxAltera" mnemonicParsing="false" onAction="#acAlterar" text="Alterar" visible="true" >
+                          <graphic>
+                           <MaterialDesignIconView glyphName="PENCIL" onMouseClicked="#acAlterar" size="1.3em" />
+                          </graphic>
+                      </MenuItem>
+                      <MenuItem fx:id="mnCtxExcluir" mnemonicParsing="false" onAction="#acExcluir" text="Excluir" visible="true" >
+                          <graphic>
+                           <MaterialDesignIconView glyphName="MINUS" onMouseClicked="#acExcluir" size="1.3em" />
+                          </graphic>
+                      </MenuItem>
+                      <MenuItem fx:id="mnCtxListar" mnemonicParsing="false" onAction="#acListar" text="Listar Disciplinas" visible="true" >
+                          <graphic>
+                           <MaterialDesignIconView glyphName="CLIPBOARD" onMouseClicked="#acListar" size="1.3em" />
+                          </graphic>
+                      </MenuItem>
+                      
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
             </TableView>
             <ToolBar prefHeight="40.0" prefWidth="200.0">
               <items>
